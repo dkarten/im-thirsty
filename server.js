@@ -1,8 +1,9 @@
 import express from 'express';
+import path from 'path';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import User from './app/models/user'
+import User from './app/models/user';
 
 const app = express();
 const saltRounds = 10;
