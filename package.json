@@ -2,7 +2,11 @@
   "name": "im-thirsty",
   "version": "1.0.0",
   "description": "Find and review the nearest water fountain in NYC ",
-  "main": "index.js",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dkarten/im-thirsty.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
