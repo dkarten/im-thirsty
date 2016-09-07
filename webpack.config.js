@@ -1,18 +1,15 @@
 import Webpack from 'webpack';
 import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const nodeModulesDir = path.resolve(__dirname, 'node_modules');
 const buildPath = path.resolve(__dirname, 'public', 'build');
 const mainPath = path.resolve(__dirname, 'app', 'client.js');
 
 const config = {
-  devtool:'eval',
+  devtool:'eval-source-map',
   entry: [
-    //hot style updates
-    'webpack/hot/dev-server',
-
-    //server refresh
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-hot-middleware/client?reload=true',
     mainPath
   ],
   output: {
@@ -20,6 +17,17 @@ const config = {
     filename:'bundle.js',
     publicPath:'/build'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template:'app/index.tpl.html',
+      inject:'body',
+      filename:'index.html'
+    }),
+    new Webpack.HotModuleReplacementPlugin(),
+    new Webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ],
   module: {
     loaders: [
       {
@@ -28,6 +36,8 @@ const config = {
         exclude:[nodeModulesDir]
       }
     ],
-    plugins: [new Webpack.HotModuleReplacementPlugin()]
-  }
+  },
+  _hotPort:3000
 }
+
+export default config;
